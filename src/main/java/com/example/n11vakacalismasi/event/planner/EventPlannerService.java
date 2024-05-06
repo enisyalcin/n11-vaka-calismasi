@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static java.time.temporal.ChronoUnit.MINUTES;
 
@@ -22,7 +23,8 @@ public class EventPlannerService {
     private static final int afterNoonDuration = (int) (4 * TimeUnit.HOURS.toMinutes(1));
     private static final LocalTime endTime = LocalTime.of(17, 0);
 
-    public List<Track> schedule(List<Event> events) {
+    public List<Track> schedule(List<EventRequest> request) {
+        List<Event> events = convertEventRequestToEvent(request);
         List<Track> tracks = new ArrayList<>();
         while (!events.isEmpty()) {
             tracks.add(createTrack(events));
@@ -41,7 +43,7 @@ public class EventPlannerService {
 
         for (Event event : selectedEvents) {
             trackEvent.add(new EventResponse(LocalTime.of(selectedEventTime.getHour(), selectedEventTime.getMinute()), event.getTitle(), event.getDuration()));
-            selectedEventTime = selectedEventTime.plusMinutes(convertToMinutes(event.getDuration()));
+            selectedEventTime = selectedEventTime.plusMinutes(event.getDuration());
 
             if (selectedEventTime.equals(LocalTime.of(12, 0))) {
                 trackEvent.add(new EventResponse(LocalTime.of(12, 0), "Lunch", ""));
@@ -51,8 +53,8 @@ public class EventPlannerService {
 
         if (selectedEventTime.isAfter(LocalTime.of(16, 0))) {
             long duration = MINUTES.between(selectedEventTime, endTime);
-            if (duration != 0) {
-                trackEvent.add(new EventResponse(LocalTime.of(selectedEventTime.getHour(), selectedEventTime.getMinute()), "Networking", duration + "min"));
+            if (duration > 0) {
+                trackEvent.add(new EventResponse(LocalTime.of(selectedEventTime.getHour(), selectedEventTime.getMinute()), "Networking", duration));
             }
         }
         return new Track(trackEvent);
@@ -69,7 +71,7 @@ public class EventPlannerService {
 
         for (int i = 1; i <= n; i++) {
             for (int j = 0; j <= totalTime; j++) {
-                int beforeEventDuration = convertToMinutes(events.get(i - 1).getDuration());
+                int beforeEventDuration = events.get(i - 1).getDuration();
                 if (j >= beforeEventDuration) {
                     dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - beforeEventDuration] + beforeEventDuration);
                 } else {
@@ -83,7 +85,7 @@ public class EventPlannerService {
         for (int i = n; i > 0 && remainingTime > 0; i--) {
             if (dp[i][remainingTime] != dp[i - 1][remainingTime]) {
                 selectedEvents.add(events.get(i - 1));
-                remainingTime -= convertToMinutes(events.get(i - 1).getDuration());
+                remainingTime -= events.get(i - 1).getDuration();
             }
         }
 
@@ -91,14 +93,9 @@ public class EventPlannerService {
     }
 
 
-    static int convertToMinutes(String duration) {
-        if (duration.endsWith("min")) {
-            String minutesStr = duration.substring(0, duration.length() - 3);
-            return Integer.parseInt(minutesStr);
-        } else if (duration.equals("lightning")) {
-            return 5;
-        } else {
-            throw new IllegalArgumentException("Invalid duration format");
-        }
+    private static List<Event> convertEventRequestToEvent(List<EventRequest> requests) {
+        return requests.stream()
+                .map(Event::new)
+                .collect(Collectors.toList());
     }
 }

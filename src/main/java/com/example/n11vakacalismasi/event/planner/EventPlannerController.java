@@ -25,7 +25,7 @@ public class EventPlannerController {
     private final EventPlannerService eventPlannerService;
 
     @PostMapping
-    public ResponseEntity<List<Track>> schedule(@RequestBody List<Event> events) {
+    public ResponseEntity<List<Track>> schedule(@RequestBody List<EventRequest> events) {
         List<Track> eventsPlanned = eventPlannerService.schedule(events);
         return new ResponseEntity<>(eventsPlanned, HttpStatus.OK);
     }

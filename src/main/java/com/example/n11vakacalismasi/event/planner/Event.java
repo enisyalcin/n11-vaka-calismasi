@@ -1,7 +1,6 @@
 package com.example.n11vakacalismasi.event.planner;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
+import com.example.n11vakacalismasi.utils.Utils;
 import lombok.Value;
 
 /**
@@ -11,12 +10,12 @@ import lombok.Value;
 @Value
 public class Event {
 
-    @NotBlank(message = "Title is required")
     private String title;
 
-    @NotBlank(message = "Duration is required")
-    @Pattern(regexp = "^(\\d+min|lightning)$", message = "Invalid duration format")
-    private String duration; // event duration minute
+    private int duration;
 
-
+    public Event(EventRequest eventRequest) {
+        this.title = eventRequest.getTitle();
+        this.duration = Utils.convertDurationToMinutes(eventRequest.getDuration());
+    }
 }
