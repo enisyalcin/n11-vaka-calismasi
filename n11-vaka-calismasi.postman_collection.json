@@ -1,0 +1,40 @@
+{
+	"info": {
+		"_postman_id": "af9e55f2-7b35-4434-8b46-44ea474fde42",
+		"name": "N11 Vaka Çalışması",
+		"description": "Büyük bir yazılım konferansı planlıyorsunuz ve ilk kontrolünüzü geçen bir çok konuşma önerisi aldınız; fakat bunları gün içerisindeki plana uygun şekilde dağıtmakta sorun yaşıyorsunuz. Bu nedenle bir uygulama yazmalısınız.\n\n- Konferansta sabah ve öğleden sonra sunumlar yapılacaktır.\n- Hem sabah, hem öğleden sonra aynı anda birden fazla sunum yapılabilir.\n- Sabah sunumları saat 9:00'da başlar, 12:00'de biter.\n- Saat 12:00'de öğle yemeği olacaktır.\n- Öğleden sonra sunumları 13:00'da başlar, iletişim etkinliklerine (networking) kadar sürer. Eğer iletişim etkinliği yoksa saat 17:00'da biter.\n- İletişim etkinlikleri sunumlardan zaman kalırsa yapılır. 16:00'dan önce başlayamaz ve en geç 17:00'de biter.\n- Sunum süreleri dakika cinsindendir veya \"lightning\" olarak belirtilir (5 dakika. Bkz:[https://en.wikipedia.org/wiki/Lightning_talk](https://en.wikipedia.org/wiki/Lightning_talk)).\n- Sunumlar arasında mola bulunmamaktadır.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "919414"
+	},
+	"item": [
+		{
+			"name": "event-planner",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\"title\": \"Architecting Your Codebase\", \"duration\": \"60min\"},\r\n  {\"title\": \"Overdoing it in Python\", \"duration\": \"45min\"},\r\n  {\"title\": \"Flavors of Concurrency in Java\", \"duration\": \"30min\"},\r\n  {\"title\": \"Ruby Errors from Mismatched Gem Versions\", \"duration\": \"45min\"},\r\n  {\"title\": \"JUnit 5 - Shaping the Future of Testing on the JVM\", \"duration\": \"45min\"},\r\n  {\"title\": \"Cloud Native Java\", \"duration\": \"lightning\"},\r\n  {\"title\": \"Communicating Over Distance\", \"duration\": \"60min\"},\r\n  {\"title\": \"AWS Technical Essentials\", \"duration\": \"45min\"},\r\n  {\"title\": \"Continuous Delivery\", \"duration\": \"30min\"},\r\n  {\"title\": \"Monitoring Reactive Applications\", \"duration\": \"30min\"},\r\n  {\"title\": \"Pair Programming vs Noise\", \"duration\": \"45min\"},\r\n  {\"title\": \"Rails Magic\", \"duration\": \"60min\"},\r\n  {\"title\": \"Microservices \\\"Just Right\\\"\", \"duration\": \"60min\"},\r\n  {\"title\": \"Clojure Ate Scala (on my project)\", \"duration\": \"45min\"},\r\n  {\"title\": \"Perfect Scalability\", \"duration\": \"30min\"},\r\n  {\"title\": \"Apache Spark\", \"duration\": \"30min\"},\r\n  {\"title\": \"Async Testing on JVM\", \"duration\": \"60min\"},\r\n  {\"title\": \"A World Without HackerNews\", \"duration\": \"30min\"},\r\n  {\"title\": \"User Interface CSS in Apps\", \"duration\": \"30min\"}\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/event-planner",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"event-planner"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
