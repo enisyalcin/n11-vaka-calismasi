@@ -1,6 +1,7 @@
 package com.example.n11vakacalismasi.event.planner;
 
 import com.example.n11vakacalismasi.utils.Utils;
+import lombok.RequiredArgsConstructor;
 import lombok.Value;
 
 /**
@@ -8,6 +9,7 @@ import lombok.Value;
  * @date : 05/06/2024
  */
 @Value
+@RequiredArgsConstructor
 public class Event {
 
     private String title;

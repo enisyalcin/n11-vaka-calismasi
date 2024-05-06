@@ -2,13 +2,13 @@ package com.example.n11vakacalismasi.event.planner;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import lombok.Data;
+import lombok.Value;
 
 /**
  * @author : PC
  * @date : 05/06/2024
  */
-@Data
+@Value
 public class EventRequest {
     @NotBlank(message = "Title is required")
     private String title;
